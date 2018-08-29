@@ -34,6 +34,7 @@
 #   - 05/02/2016 Updated by Phil Redfern and John Ross, added keychain update and fixed a bug where no stored LAPS password would cause the process to hang.
 #   - 05/06/2016 Updated by Phil Redfern, improved local logging and increased random passcode length.
 #   - 05/11/2016 Updated by Phil Redfern, removed ambiguous characters from the password generator.
+#   - 08/29/2018 Updated by Stephen Short, replaced $jamf_binary with sysadminctl for updating the user password. This is to address issues with secureToken and FileVault enablement in 10.13.6 and later. Commented out -updateLoginKeychain as sysadminctl -resetPasswordFor will always create a new Keychain for the user
 #
 #   - This script will randomize the password of the specified user account and post the password to the LAPS Extention Attribute in Casper.
 #
@@ -185,11 +186,12 @@ ScriptLogging "Running LAPS..."
 if [ "$oldPass" == "" ];then
     ScriptLogging "Current password not available, proceeding with forced update for $resetUser."
     echo "Current password not available, proceeding with forced update."
-    $jamf_binary resetPassword -username $resetUser -password $newPass
+    sysadminctl -adminUser $resetUser -adminPassword $oldPass -resetPasswordFor $resetUser -newPassword $newPass
 else
     ScriptLogging "Updating password for $resetUser."
     echo "Updating password for $resetUser."
-    $jamf_binary resetPassword -updateLoginKeychain -username $resetUser -oldPassword $oldPass -password $newPass
+    sysadminctl -adminUser $resetUser -adminPassword $oldPass -resetPasswordFor $resetUser -newPassword $newPass
+#not needed with sysadminctl# $jamf_binary resetPassword -updateLoginKeychain -username $resetUser -oldPassword $oldPass -password $newPass
 fi
 }
 
