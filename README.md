@@ -1,6 +1,8 @@
 # LAPSforMac -- updated compatibility for High Sierra
 
-Huge, **huge** kudos to Phil Redfern and the University of Nebraska for this script. I simply updated the LAPS script to resolve some quirks with the `jamf_binary` in High Sierra, resulting in odd behavior regarding secureToken and FileVault enablement on Active Directory-bound accounts. I hope to include some screenshot examples of the specific errors in the future...
+Huge, **huge** kudos to Phil Redfern and the University of Nebraska for this script. I simply updated the LAPS script to resolve some quirks with the `jamf_binary` in High Sierra, resulting in odd behavior regarding secureToken and FileVault enablement on Active Directory-bound accounts. 
+
+This script works on local accounts as well, my environment just happens to bind to AD and so encountered this issue almost immediately in High Sierra.
 
 
 ## `dscl`, secureToken, and FileVault
