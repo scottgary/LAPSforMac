@@ -35,7 +35,7 @@
 #   - 05/06/2016 Updated by Phil Redfern, improved local logging and increased random passcode length.
 #   - 05/11/2016 Updated by Phil Redfern, removed ambiguous characters from the password generator.
 #   - 08/29/2018 Updated by Stephen Short, replaced $jamf_binary with sysadminctl for updating the user password. This is to address issues with secureToken and FileVault enablement in 10.13.6 and later. Commented out -updateLoginKeychain as sysadminctl -resetPasswordFor will always create a new Keychain for the user
-#	- 10/19/2018 Updated by Kelly Dickson, created an additional extension attribute to store the old/previous LAPS password value to assist with sysadminctl. This addresses a password sync issue in Jamf Pro 10.7 and Mojave
+#	  - 10/19/2018 Updated by Kelly Dickson, created an additional extension attribute to store the old/previous LAPS password value to assist with sysadminctl. This addresses a password sync issue in Jamf Pro 10.7 and Mojave
 #
 #   - This script will randomize the password of the specified user account and post the password to the LAPS Extention Attribute in Jamf Pro.
 #
