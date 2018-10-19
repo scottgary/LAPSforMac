@@ -1,4 +1,4 @@
-# LAPSforMac -- updated compatibility for High Sierra
+# LAPSforMac -- updated compatibility for Mojave and High Sierra
 
 Huge, **huge** kudos to Phil Redfern and the University of Nebraska for this script. I simply updated the LAPS script to resolve some quirks with the `jamf_binary` in High Sierra, resulting in odd behavior regarding secureToken and FileVault enablement. I'm using this script to update a local admin account through a Jamf policy, however you can repurpose this script to be used outside of Jamf.
 
