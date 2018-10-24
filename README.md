@@ -45,4 +45,4 @@ In addition: because `sysadminctl -resetPasswordFor` will force the creation of 
 
 ## Mojave and Jamf Extended Attributes
 
-In macOS 10.14 and Jamf Pro 10.7 (and later) the policy will fail unless you store the previous LAPS password value in an additional Extended Attribute to prevent problems when verifying the new password value is correct, and stored in Jamf. The script has been updated to create this new EA using the Jamf API. 
+In macOS 10.14 and Jamf Pro 10.7 (and later) the policy will fail unless you store the previous LAPS password value in an additional Extended Attribute. This prevents issues verifying the new password is correct, and is stored in Jamf. The script has been updated to create this new EA using the Jamf API. 
