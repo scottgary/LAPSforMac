@@ -1,6 +1,6 @@
 # LAPSforMac -- updated compatibility for Mojave and High Sierra
 
-Huge, **huge** kudos to Phil Redfern and the University of Nebraska for this script. I simply updated the LAPS script to resolve some quirks with the `jamf_binary` in High Sierra, resulting in odd behavior regarding secureToken and FileVault enablement. I'm using this script to update a local admin account through a Jamf policy, however you can repurpose this script to be used outside of Jamf.
+Huge, **huge** kudos to Phil Redfern and the University of Nebraska for this script. I simply updated the LAPS script to resolve some quirks with the Jamf binary in High Sierra, resulting in odd behavior regarding secureToken and FileVault enablement. I'm using this script to update a local admin account through a Jamf policy, however you can repurpose this script to be used outside of Jamf.
 
 
 ## `dscl`, secureToken, and FileVault
@@ -16,7 +16,7 @@ Huge, **huge** kudos to Phil Redfern and the University of Nebraska for this scr
 * secureToken is successfully enabled for the AD-user
 * Run `sysadminctl -secureTokenStatus ADUserHere` to confirm secureToken is ENABLED
 * A Jamf policy silently changes the local admin user's password in the background using the LAPS script
-* The AD-user either logs out to trigger a deferred FileVault enablement, but an error appears stating FileVault could not be enabled
+* The AD-user logs out to trigger a deferred FileVault enablement, but an error appears stating FileVault could not be enabled
 * Reboot and log in as the local admin user using the new LAPS password
 * Run `sysadminctl -secureTokenStatus LocalAdminUserHere` to confirm secureToken is ENABLED for the local admin
 * Run `sysadminctl -secureTokenStatus ADUserHere` and discover secureToken is DISABLED for the AD-user, despite "successfully" gaining a secureToken during the initial AD-user login
@@ -42,3 +42,7 @@ with
 `sysadminctl -adminUser $resetUser -adminPassword $oldPass -resetPasswordFor $resetUser -newPassword $newPass`
 
 In addition: because `sysadminctl -resetPasswordFor` will force the creation of a new Keychain, you can comment out/ignore `$jamf_binary resetPassword -updateLoginKeychain -username $resetUser -oldPassword $oldPass -password $newPass`
+
+## Mojave and Jamf Extended Attributes
+
+In macOS 10.14 and Jamf Pro 10.7 (and later) the policy will fail unless you store the previous LAPS password value in an additional Extended Attribute to prevent problems when verifying the new password value is correct, and stored in Jamf. The script has been updated to create this new EA using the Jamf API. 
