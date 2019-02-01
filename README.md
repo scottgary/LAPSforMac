@@ -46,3 +46,10 @@ In addition: because `sysadminctl -resetPasswordFor` will force the creation of 
 ## Mojave and Jamf Extended Attributes
 
 In macOS 10.14 and Jamf Pro 10.7 (and later) the policy will fail unless you store the previous LAPS password value in an additional Extended Attribute. This prevents issues verifying the new password is correct, and is stored in Jamf. The script has been updated to create this new EA using the Jamf API. 
+
+## Sync a mismatched FileVault password in Mojave
+
+* In Mojave, if a mobile Active Directory user password is changed off of the Mac (Active Directory, Okta, a network-bound Windows PC, etc) the FileVault password will never sync with the new password.
+* Some users report that the Keychain password has diffculy syncing, or odd behavior where a user's password alternates between the old/cached password and the new/network password based on whether the user is connected to the corporate network
+* A simple restart does not resolve the issue
+* If you're using the LAPS script in a Jamf extended attribute, use this new script to grab the LAPS value to assist with syncing the new network password with FileVault
