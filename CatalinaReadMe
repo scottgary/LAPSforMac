@@ -1,0 +1,21 @@
+LAPSforMac -- updated compatibility for 10.15 (Catalina)
+
+Huge, huge kudos to Phil Redfern and the University of Nebraska for the original script. Additional kudo to Stephen Short for the work on Mojave and 
+updating the LAPS script to resolve some quirks with the Jamf binary in High Sierra, resulting in odd behavior regarding secureToken and FileVault enablement.
+I am making this zsh freindly ahead of the public Catalina release. TBH not much has changed, the original ReadMe's will still be helpful in setup and deployment.
+Major changes of note are:
+
+* Jamf $7 is now URL for API call if you have mutiple servers in your deployment and don't want to hardcode this
+* Jamf binary if statements taken out and replaced with hard coded $ (not used if not running recon before exiting, simply comment both lines out: 53 & 230)
+* My deployments password policy needs to be compliant with LAPS run, adding "Aq1*" and a tail end of the LAPS pw ensures compliance.
+* ZSH!
+
+Original ReadMe for setup instructions:
+
+https://github.com/NU-ITS/LAPSforMac
+
+Mojave Update for add-ons:
+
+https://github.com/tbso/LAPSforMac
+
+(These are also added in comments at the top of the script since I always seem to forget)
