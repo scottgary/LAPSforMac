@@ -63,7 +63,7 @@ newPass=$(env LC_CTYPE=C tr -dc "A-Za-z0-9#\$^&_+=" < /dev/urandom | head -c 16;
 extAttName="\"LAPS\""
 extAttName2="\"oldLAPS\""
 udid=$(/usr/sbin/system_profiler SPHardwareDataType | /usr/bin/awk '/Hardware UUID:/ { print $3 }')
-oldPass=$(curl -s -u "$apiUser":"$apiPass" -H "Accept: application/xml" "$apiURL"/JSSResource/computers/udid/"$udid"/subset/extension_attributes | xpath "//extension_attribute[name=$extAttName]" 2>&1 | awk -F'<value>|</value>' '{print $2}' | tr -d '\n')
+oldPass=$(curl -s -u "$apiUser":"$apiPass" -H "Accept: application/xml" "$apiURL"/JSSResource/computers/udid/"$udid"/subset/extension_attributes | xpath -e "//extension_attribute[name=$extAttName]" 2>&1 | awk -F'<value>|</value>' '{print $2}' | tr -d '\n')
 xmlString="<?xml version=\"1.0\" encoding=\"UTF-8\"?><computer><extension_attributes><extension_attribute><name>LAPS</name><value>$newPass</value></extension_attribute></extension_attributes></computer>"
 xmlString2="<?xml version=\"1.0\" encoding=\"UTF-8\"?><computer><extension_attributes><extension_attribute><name>oldLAPS</name><value>$oldPass</value></extension_attribute></extension_attributes></computer>"
 
@@ -149,7 +149,7 @@ ScriptLogging "Recording previous password for $resetUser into LAPS."
 
 sleep 1
 
-TestPass=$(curl -s -f -u $apiUser:$apiPass -H "Accept: application/xml" $apiURL/JSSResource/computers/udid/$udid/subset/extension_attributes | xpath "//extension_attribute[name=$extAttName2]" 2>&1 | awk -F'<value>|</value>' '{print $2}' | tr -d '\n')
+TestPass=$(curl -s -f -u $apiUser:$apiPass -H "Accept: application/xml" $apiURL/JSSResource/computers/udid/$udid/subset/extension_attributes | xpath -e "//extension_attribute[name=$extAttName2]" 2>&1 | awk -F'<value>|</value>' '{print $2}' | tr -d '\n')
 
 ScriptLogging "Verifying the current password has been backed up"
 if [ "$TestPass" = "$oldPass" ];then
@@ -203,7 +203,7 @@ echo "Recording new password for $resetUser into LAPS."
 
 sleep 1
 
-LAPSpass=$(curl -s -f -u $apiUser:$apiPass -H "Accept: application/xml" $apiURL/JSSResource/computers/udid/$udid/subset/extension_attributes | xpath "//extension_attribute[name=$extAttName]" 2>&1 | awk -F'<value>|</value>' '{print $2}' | tr -d '\n')
+LAPSpass=$(curl -s -f -u $apiUser:$apiPass -H "Accept: application/xml" $apiURL/JSSResource/computers/udid/$udid/subset/extension_attributes | xpath -e "//extension_attribute[name=$extAttName]" 2>&1 | awk -F'<value>|</value>' '{print $2}' | tr -d '\n')
 
 ScriptLogging "Verifying LAPS password for $resetUser."
 echo "Verifying LAPS password for $resetUser."
